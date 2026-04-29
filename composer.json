@@ -1,0 +1,49 @@
+{
+    "name": "webisters/one",
+    "description": "Webisters One Project",
+    "license": "MIT",
+    "type": "project",
+    "keywords": [
+        "one",
+        "micro",
+        "microservice"
+    ],
+    "homepage": "https://webisters.com/packages/one",
+    "support": {
+        "email": "support@webisters.com",
+        "issues": "https://github.com/webisters/one/issues",
+        "forum": "https://github.com/webisters/forum",
+        "source": "https://github.com/webisters/one",
+        "docs": "https://webisters.com"
+    },
+    "funding": [
+        {
+            "type": "Webisters Sponsor",
+            "url": "https://webisters.com/sponsor"
+        }
+    ],
+    "require": {
+        "php": ">=8.2",
+        "webisters/framework": "^1.0"
+    },
+    "require-dev": {
+        "webisters/webisters": "^1.0",
+        "webisters/coding-standard": "^1.0",
+        "jetbrains/phpstorm-attributes": "^1.2",
+        "phpunit/phpunit": "^11.5"
+    },
+    "minimum-stability": "stable",
+    "prefer-stable": true,
+    "autoload-dev": {
+        "psr-4": {
+            "Tests\\One\\": "tests/"
+        }
+    },
+    "config": {
+        "optimize-autoloader": true,
+        "preferred-install": "dist",
+        "sort-packages": true
+    }
+}
+
+

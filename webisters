@@ -1,0 +1,45 @@
+#!/usr/bin/env php
+<?php
+
+declare(strict_types=1);
+
+$argv = $_SERVER['argv'] ?? [];
+$command = $argv[1] ?? null;
+
+if ($command === 'start') {
+	$portArg = $argv[2] ?? '8000';
+	if (!ctype_digit($portArg)) {
+		fwrite(STDERR, "Invalid port. Use an integer between 1 and 65535." . PHP_EOL);
+		exit(1);
+	}
+	$port = (int) $portArg;
+	if ($port < 1 || $port > 65535) {
+		fwrite(STDERR, "Invalid port. Use an integer between 1 and 65535." . PHP_EOL);
+		exit(1);
+	}
+
+	$documentRoot = is_dir(__DIR__ . '/public')
+		? realpath(__DIR__ . '/public')
+		: realpath(__DIR__);
+	if (!is_string($documentRoot) || $documentRoot === '') {
+		fwrite(STDERR, "Cannot resolve document root." . PHP_EOL);
+		exit(1);
+	}
+	$routerScript = is_file($documentRoot . '/index.php')
+		? $documentRoot . '/index.php'
+		: null;
+
+	echo PHP_EOL . "Starting Server" . PHP_EOL . PHP_EOL;
+	echo 'http://127.0.0.1:' . $port . PHP_EOL . PHP_EOL;
+
+	$cmd = escapeshellarg(PHP_BINARY)
+		. ' -S 127.0.0.1:' . $port
+		. ' -t ' . escapeshellarg($documentRoot);
+	if ($routerScript !== null) {
+		$cmd .= ' ' . escapeshellarg($routerScript);
+	}
+	passthru($cmd, $exitCode);
+	exit((int) $exitCode);
+}
+
+require __DIR__ . '/vendor/bin/webisters';
