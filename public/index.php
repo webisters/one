@@ -5,8 +5,8 @@
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
-if (PHP_SAPI === 'cli-server') {
-    $requestPath = (string) (parse_url($_SERVER['REQUEST_URI'] ?? '/', PHP_URL_PATH) ?? '/');
+if (\PHP_SAPI === 'cli-server') {
+    $requestPath = (string) (parse_url($_SERVER['REQUEST_URI'] ?? '/', \PHP_URL_PATH) ?? '/');
     $requestPath = rawurldecode($requestPath);
     $file = __DIR__ . $requestPath;
     if ($requestPath !== '/' && is_file($file)) {
@@ -25,7 +25,7 @@ if (isset($_SERVER['ENVIRONMENT']) && $_SERVER['ENVIRONMENT'] === 'development')
     error_reporting(-1);
     ini_set('display_errors', 'On');
 } else {
-    error_reporting(E_ALL & ~E_DEPRECATED & ~E_NOTICE & ~E_USER_DEPRECATED & ~E_USER_NOTICE);
+    error_reporting(\E_ALL & ~\E_DEPRECATED & ~\E_NOTICE & ~\E_USER_DEPRECATED & ~\E_USER_NOTICE);
     ini_set('display_errors', 'Off');
 }
 
